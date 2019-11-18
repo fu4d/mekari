@@ -1,1 +1,42 @@
-<h2>Welcome to Dashboard</h2>
+<h2>Tentang system</h2>
+
+<div>
+	Ini adalah program CRUD Sederhana menggunakan Laravel 5.2 Angular dan Jquery
+</div>
+<div>
+	<p><h2>Tahap Instalasi:</h2></p>
+
+	<div>
+		Dalam system ini sudah dibuatkan custom comman untuk membuat database. Sehingga untuk langkah pertama adalah menjalankan perintah  "php artisan make:database db_name "
+	</div>
+
+	<div>
+		<p>Configurasi environment</p>
+		<div>
+		Buka file .env yang ada di root directory. Edit koneksi database yang akan digunakan pada baris berikut:
+		<ul>
+			<li>DB_CONNECTION: mysql</li>
+			<li>DB_HOST: ip_or_hostname</li>
+			<li>DB_PORT: 3306</li>
+			<li>DB_USERNAME: mysql_user</li>
+			<li>DB_PASSWORD: mysql_password</li>
+			<li>DB_DATABASE: database_name_yang barusan dibuat</li>
+		</ul>
+		</div>
+	</div>
+
+
+	<div>
+		<p>Install table</p>
+		<div>
+			lakukan perintah "php artisan migrate" untuk menginstall semua migration table yang pernah dibuat
+		</div>
+	</div>
+
+	<div>
+		<p>jalankan system</p>
+		<div>
+			kemudian jalankan server dengan melakukan perintah "php artisan serve". selanjutnya kita bisa mengakses dengan alamat <a href="http://localhost:8000/">http://localhost:8000/</a>
+		</div>
+	</div>
+</div>
