@@ -47,34 +47,33 @@ app.controller('ItemController', function(dataFactory,$scope,$http){
   }
   $scope.edit = function(id){
     dataFactory.httpRequest('items/'+id+'/edit').then(function(data) {
-    	console.log(data);
-      	$scope.form = data;
+        $scope.form = data;
     });
   }
   $scope.saveEdit = function(){
     dataFactory.httpRequest('items/'+$scope.form.id,'PUT',{},$scope.form).then(function(data) {
-      	$(".modal").modal("hide");
+        $(".modal").modal("hide");
         $scope.data = apiModifyTable($scope.data,data.id,data);
     });
   }
   $scope.remove = function(item,index){
     var result = confirm("Are you sure delete this item?");
-   	if (result) {
+    if (result) {
       dataFactory.httpRequest('items/'+item.id,'DELETE').then(function(data) {
           $scope.data.splice(index,1);
       });
     }
   }
-  $scope.removeall = function(index){
+  $scope.removeall = function(){
     var result = confirm("Are you sure delete these items?");
-   	if (result) {
-   		var selected = $('input[name="itemid"]:checked');
-   		selected.each(function() {
+    if (result) {
+      var selected = $('input[name="itemid"]:checked');
+      selected.each(function() {
 
-		   	dataFactory.httpRequest('items/'+this.value,'DELETE').then(function(data) {
-	          $scope.data.splice(index,selected.length);
-	      	});
-		});
+        dataFactory.httpRequest('items/'+this.value,'DELETE').then(function(data) {
+            selected.closest("tr").remove();
+          });
+    });
     }
   }
 });
