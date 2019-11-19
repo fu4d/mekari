@@ -7,7 +7,6 @@
 <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
 <script type="text/javascript" src="{{asset('js/jquery-3.4.1.min.js')}}"></script>
 <script src="{{asset('js/bootstrap.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/dataTables.bootstrap4.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/jquery.dataTables.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/jquery.validate.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/popper.min.js')}}"></script>
@@ -24,5 +23,5 @@
 <!-- App Controller -->
 <script src="{{ asset('/app/controllers/ItemController.js') }}"></script>
 
-@yield('customjs')
-@yield('customcss')
+@yield('additionaljs')
+@yield('additionalcss')

@@ -19,6 +19,12 @@ Route::get('/', function () {
 Route::get('/', function () {
     return view('pages.index');
 });
+
 Route::group(['middleware' => ['web']], function () {
     Route::resource('items', 'ItemController');
+    Route::resource('j-items', 'ItemController@jindex');
+    Route::get('items/{id}', 'ItemController@edit');
+    Route::post('items', 'ItemController@store');
+    Route::put('items/{id}', 'ItemController@update');
+    Route::delete('items/{id}', 'ItemController@destroy');
 });

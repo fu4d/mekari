@@ -8,7 +8,10 @@
 			<header id="header" class="row header">
 				@include('components.header')
 			</header>
-			<ng-view></ng-view>
+			<div>
+				@yield('content')
+				<div>@yield('customjs')</div>
+			</div>
 			<footer class="row">
 				@include('components.footer')
 			</footer>
