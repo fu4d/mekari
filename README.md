@@ -1,4 +1,4 @@
-#Petunjuk Instalasi
+# Petunjuk Instalasi
 
 Tentang system
 Ini adalah program CRUD Sederhana menggunakan Laravel 5.2 Angular dan Jquery
@@ -21,20 +21,20 @@ jalankan system
 kemudian jalankan server dengan melakukan perintah "php artisan serve". selanjutnya kita bisa mengakses dengan alamat http://localhost:8000/
 
 
-#Dokumentasi
+# Dokumentasi
 
-#Install
+## Install
 
 $ composer create-project laravel/laravel project_name --prefer-dist 5.2.*
 
 
 
-#Test Jalankan project
+## Test Jalankan project
 
 $  php artisan serve
 
 
-# Membuat console command untuk create database
+## Membuat console command untuk create database
 
 $ php artisan make:console CreteDatabase
 
@@ -58,7 +58,7 @@ $ php artisan make:console CreteDatabase
 
 $ php artisan make:database db_name
 
-# Persiapan Environment Laravel
+## Persiapan Environment Laravel
 	Buka file .env yang ada di root directory. Edit koneksi database yang akan digunakan pada baris berikut
 		DB_CONNECTION: mysql
 		DB_HOST: ip_or_hostname
@@ -68,7 +68,7 @@ $ php artisan make:database db_name
 		DB_DATABASE: database_name
 
 
-# Membuat database tabel
+## Membuat database tabel
 
 $ php artisa make:migration create_tablenames_table --create=tablenames
 
@@ -90,7 +90,7 @@ $ php artisa make:migration create_tablenames_table --create=tablenames
 $ php artisan migrate  #  mengeksekusi file miration untuk membuat database sesuai yang telah didefinisikan sebelumnya di file migration
 
 
-# Mengubah (alter) tabel
+## Mengubah (alter) tabel
 
 $ php artisan make:migration add_newfield_to_tablenames_table --table=orders
 
@@ -104,7 +104,7 @@ $ php artisan make:migration add_newfield_to_tablenames_table --table=orders
 $ php artisan migrate
 
 
-# Create Controller
+## Create Controller
 
 $ php artisan make:controller NewController --resource
 
@@ -116,10 +116,10 @@ $ php artisan make:controller NewController --resource
 		return view('bladeName')->withData(data);
 	}
 
-# Persiapan source css, javascript, dan image
+## Persiapan source css, javascript, dan image
 	Buat direktory css, js, dan images pada direktori public. direktory tersebut dapat dipanggil dengan tag {{asset('css/namaFile.css')}} atau {{asset('js/namaFile.js')}} atau {{asset('images/namaFile.png')}}
 
-# Membuat blade view
+## Membuat blade view
 
 untuk view sebaiknya dibuat beberapa bagian yaitu layout, component, dan page. di mana layout merupakan susunan skeleton tampilan secara general. Seadngkan component meripakan kumpulan dari part-part halaman yang biasa dan dapat digunakan secara berulang seperti head, header, footer, modal, navbar, left dan right columns. Dan yang terakhir adalah page yang merupakan kumpulan bagian yang akan menampilkan content utama dari setiap halaman. Sehingga strukturnya akan seperti ini contohnya:
 
@@ -195,7 +195,7 @@ untuk view sebaiknya dibuat beberapa bagian yaitu layout, component, dan page. d
 
 	* mebuat page blade view, contoh:
 
-# Membuat Router
+## Membuat Router
 	pada file app/Http/routes.php kita akan mendefinisikan rout url untuk setiap controller maupun page view yang akan diakses. Contoh:
 
 	Route::resource('/','IndexController');
