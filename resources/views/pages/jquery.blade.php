@@ -30,7 +30,7 @@
          <?php $index = 1 ?>
     	@foreach ($values as $value)
         <tr id="item{{$value->id}}" >
-            <td><input type="checkbox" name="itemid" class="itemid" value="{{ $value->id }}">  {{ $index++ }}</td>
+            <td><input type="checkbox" name="itemid" class="itemid" value="{{ $value->id }}"> <span> {{ $index++ }} </span></td>
             <td>{{ $value->title }}</td>
             <td>{{ $value->description }}</td>
             <td>
@@ -55,7 +55,7 @@
 <div class="modal fade" id="linkEditorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form id="modalFormData" method="POST" name="addItem" role="form" ng-submit="saveAdd()">
+            <form id="modalFormData" method="POST" name="addItem" role="form">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                 <h4 class="modal-title" id="myModalLabel">Create Item</h4>
@@ -79,7 +79,7 @@
                         </div>
                     </div>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" id="btn-save" value="update" ng-disabled="addItem.$invalid" class="btn btn-primary">Submit</button>
+                    <button type="submit" id="btn-save" value="update" class="btn btn-primary">Submit</button>
                 </div>
             </div>
             </form>
@@ -139,7 +139,9 @@
         data: formData,
         dataType: 'json',
         success: function (data) {
-            var item = '<tr id="item' + data.id + '"><td><input type="checkbox" name="itemid" class="itemid" value="' + data.id + '"> </td><td>' + data.title + '</td><td>' + data.description + '</td>';
+            let rowindex = parseInt($('#items-list tr:last-child td:first-child').find('span').html())+1;
+            console.log(rowindex);
+            var item = '<tr id="item' + data.id + '"><td><input type="checkbox" name="itemid" class="itemid" value="' + data.id + '"> <span>'+rowindex+'</span></td><td>' + data.title + '</td><td>' + data.description + '</td>';
             item += '<td><button class="btn btn-info open-modal" value="' + data.id + '">Edit</button>&nbsp;';
             item += '<button class="btn btn-danger delete-link" value="' + data.id + '">Delete</button></td></tr>';
             if (state == "add") {
