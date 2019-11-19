@@ -181,6 +181,43 @@
         });
       }
     });
+
+    jQuery('input[name="table_search"]').keyup(function(event) {
+      let query = this.value;
+      let rowindex = 0;
+      if(query.length > 2){
+        let content = '<tbody id="items-list">';
+        $.get('/items/?search='+query, function (items) {
+          $.each(items.data, function(index, data) {
+            console.log(data);
+            rowindex++;
+
+            content += '<tr id="item' + data.id + '"><td><input type="checkbox" name="itemid" class="itemid" value="' + data.id + '"> <span>'+rowindex+'</span></td><td>' + data.title + '</td><td>' + data.description + '</td>';
+            content += '<td><button class="btn btn-info open-modal" value="' + data.id + '">Edit</button>&nbsp;';
+            content += '<button class="btn btn-danger delete-link" value="' + data.id + '">Delete</button></td></tr>';
+          });
+
+          content += '</tbody>';
+          $("#items-list").replaceWith(content);
+        });
+      }
+      else {
+        let content = '<tbody id="items-list">';
+        $.get('/items/', function (items) {
+          $.each(items.data, function(index, data) {
+            console.log(data);
+            rowindex++;
+
+            content += '<tr id="item' + data.id + '"><td><input type="checkbox" name="itemid" class="itemid" value="' + data.id + '"> <span>'+rowindex+'</span></td><td>' + data.title + '</td><td>' + data.description + '</td>';
+            content += '<td><button class="btn btn-info open-modal" value="' + data.id + '">Edit</button>&nbsp;';
+            content += '<button class="btn btn-danger delete-link" value="' + data.id + '">Delete</button></td></tr>';
+          });
+
+          content += '</tbody>';
+          $("#items-list").replaceWith(content);
+        });
+      }
+    });
 });
 
 function removeall(){
