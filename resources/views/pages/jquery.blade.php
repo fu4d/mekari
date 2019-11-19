@@ -27,9 +27,10 @@
         </tr>
     </thead>
     <tbody  id="items-list">
+         <?php $index = 1 ?>
     	@foreach ($values as $value)
         <tr id="item{{$value->id}}" >
-            <td><input type="checkbox" name="itemid" class="itemid" value="{{ $value->id }}"> </td>
+            <td><input type="checkbox" name="itemid" class="itemid" value="{{ $value->id }}">  {{ $index++ }}</td>
             <td>{{ $value->title }}</td>
             <td>{{ $value->description }}</td>
             <td>
@@ -41,10 +42,15 @@
     </tbody>
     <tfoot>
         <tr><td colspan="4">
-            <button ng-click="removeall()" class="btn btn-danger">Delete All</button></td></tr>
+            <button onclick="removeall()" class="btn btn-danger">Delete All</button></td></tr>
     </tfoot>
 </table>
-<dir-pagination-controls class="pull-right" on-page-change="pageChanged(newPageNumber)" template-url="/templates/dirPagination.html" ></dir-pagination-controls>
+<nav class="pull-right">
+    <ul class="pagination justify-content-end">
+        {{ $values->links() }}
+    </ul>
+</nav>
+
 <!-- Create Modal -->
 <div class="modal fade" id="linkEditorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -172,5 +178,29 @@
         });
     });
 });
+
+function removeall(){
+    var selected = $('input[name="itemid"]:checked');
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': "{{ csrf_token() }}"
+        }
+    });
+
+    selected.each(function() {
+        let item_id = this.value;
+        $.ajax({
+            type: "DELETE",
+            url: '/items/' + item_id,
+            success: function (data) {
+                console.log(data);
+                $("#item" + item_id).remove();
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
+    });
+}
 </script>
 @stop
