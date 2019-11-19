@@ -96,111 +96,116 @@
     jQuery(document).ready(function($){
     ////----- Open the modal to CREATE an item -----////
     jQuery('#btn-add').click(function () {
-        jQuery('#btn-save').val("add");
-        jQuery('#modalFormData').trigger("reset");
-        //jQuery('#linkEditorModal').modal('show');
+      jQuery('#btn-save').val("add");
+      jQuery('#modalFormData').trigger("reset");
     });
 
     ////----- Open the modal to UPDATE a link -----////
     jQuery('body').on('click', '.btn-edit', function () {
-        var item_id = $(this).val();
-        $.get('/items/' + item_id, function (data) {
-            jQuery('#item_id').val(data.id);
-            jQuery('#item_name').val(data.title);
-            jQuery('#description').val(data.description);
-            jQuery('#btn-save').val("update");
-            jQuery('#linkEditorModal').modal('show');
-        })
+      var item_id = $(this).val();
+      $.get('/items/' + item_id, function (data) {
+        jQuery('#item_id').val(data.id);
+        jQuery('#item_name').val(data.title);
+        jQuery('#description').val(data.description);
+        jQuery('#btn-save').val("update");
+        jQuery('#linkEditorModal').modal('show');
+      });
     });
 
     // Clicking the save button on the open modal for both CREATE and UPDATE
     $("#btn-save").click(function (e) {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': "{{ csrf_token() }}"
-            }
-        });
-        e.preventDefault();
-        var formData = {
-            title: jQuery('#item_name').val(),
-            description: jQuery('#description').val(),
-        };
-        var state = jQuery('#btn-save').val();
-        var type = "POST";
-        var item_id = jQuery('#item_id').val();
-        var ajaxurl = '/items';
-        if (state == "update") {
-            type = "PUT";
-            ajaxurl = '/items/' + item_id;
+      $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': "{{ csrf_token() }}"
         }
+      });
+      e.preventDefault();
+      var formData = {
+        title: jQuery('#item_name').val(),
+        description: jQuery('#description').val(),
+      };
+      var state = jQuery('#btn-save').val();
+      var type = "POST";
+      var item_id = jQuery('#item_id').val();
+      var ajaxurl = '/items';
+      if (state == "update") {
+        type = "PUT";
+        ajaxurl = '/items/' + item_id;
+      }
 
-        $.ajax({
-            type: type,
-            url: ajaxurl,
-            data: formData,
-            dataType: 'json',
-            success: function (data) {
-                var item = '<tr id="item' + data.id + '"><td><input type="checkbox" name="itemid" class="itemid" value="' + data.id + '"> </td><td>' + data.title + '</td><td>' + data.description + '</td>';
-                item += '<td><button class="btn btn-info open-modal" value="' + data.id + '">Edit</button>&nbsp;';
-                item += '<button class="btn btn-danger delete-link" value="' + data.id + '">Delete</button></td></tr>';
-                if (state == "add") {
-                    jQuery('#items-list').append(item);
-                } else {
-                    $("#item" + item_id).replaceWith(item);
-                }
-                jQuery('#modalFormData').trigger("reset");
-                jQuery('#linkEditorModal').modal('hide')
-            },
-            error: function (data) {
-                console.log('Error:', data);
+      $.ajax({
+        type: type,
+        url: ajaxurl,
+        data: formData,
+        dataType: 'json',
+        success: function (data) {
+            var item = '<tr id="item' + data.id + '"><td><input type="checkbox" name="itemid" class="itemid" value="' + data.id + '"> </td><td>' + data.title + '</td><td>' + data.description + '</td>';
+            item += '<td><button class="btn btn-info open-modal" value="' + data.id + '">Edit</button>&nbsp;';
+            item += '<button class="btn btn-danger delete-link" value="' + data.id + '">Delete</button></td></tr>';
+            if (state == "add") {
+                jQuery('#items-list').append(item);
+            } else {
+                $("#item" + item_id).replaceWith(item);
             }
-        });
+            jQuery('#modalFormData').trigger("reset");
+            jQuery('#linkEditorModal').modal('hide')
+        },
+        error: function (data) {
+            console.log('Error:', data);
+        }
+      });
     });
 
     ////----- DELETE item and remove from the page -----////
     jQuery('.delete-item').click(function () {
+      var result = confirm("Are you sure delete this item?");
+      if (result) {
         var item_id = $(this).val();
         $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': "{{ csrf_token() }}"
-            }
+          headers: {
+              'X-CSRF-TOKEN': "{{ csrf_token() }}"
+          }
         });
         $.ajax({
-            type: "DELETE",
-            url: '/items/' + item_id,
-            success: function (data) {
-                console.log(data);
-                $("#item" + item_id).remove();
-            },
-            error: function (data) {
-                console.log('Error:', data);
-            }
+          type: "DELETE",
+          url: '/items/' + item_id,
+          success: function (data) {
+              console.log(data);
+              $("#item" + item_id).remove();
+          },
+          error: function (data) {
+              console.log('Error:', data);
+          }
         });
+      }
     });
 });
 
 function removeall(){
-    var selected = $('input[name="itemid"]:checked');
-    $.ajaxSetup({
+    var result = confirm("Are you sure delete these items?");
+    if (result) {
+      var selected = $('input[name="itemid"]:checked');
+      $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': "{{ csrf_token() }}"
         }
-    });
+      });
 
-    selected.each(function() {
+      selected.each(function() {
         let item_id = this.value;
         $.ajax({
-            type: "DELETE",
-            url: '/items/' + item_id,
-            success: function (data) {
-                console.log(data);
-                $("#item" + item_id).remove();
-            },
-            error: function (data) {
-                console.log('Error:', data);
-            }
-        });
-    });
+          type: "DELETE",
+          url: '/items/' + item_id,
+          success: function (data) {
+              console.log(data);
+              $("#item" + item_id).remove();
+          },
+          error: function (data) {
+              console.log('Error:', data);
+          }
+      });
+      });
+    }
 }
 </script>
 @stop
