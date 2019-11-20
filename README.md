@@ -92,7 +92,7 @@ $ php artisan migrate  #  mengeksekusi file miration untuk membuat database sesu
 
 ## Mengubah (alter) tabel
 
-$ php artisan make:migration add_newfield_to_tablenames_table --table=orders
+$ php artisan make:migration add_newfield_to_tablenames_table --table=table_name
 
 	- Buka file migration 0000_00_00_add_discount_to_orders_table kemudian seuaikan function dengan menambahkan fields yang dimaksud sperti berikut:
 		up(){
