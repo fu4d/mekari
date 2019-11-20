@@ -124,8 +124,11 @@ $ php artisan make:controller NewController --resource
 untuk view sebaiknya dibuat beberapa bagian yaitu layout, component, dan page. di mana layout merupakan susunan skeleton tampilan secara general. Seadngkan component meripakan kumpulan dari part-part halaman yang biasa dan dapat digunakan secara berulang seperti head, header, footer, modal, navbar, left dan right columns. Dan yang terakhir adalah page yang merupakan kumpulan bagian yang akan menampilkan content utama dari setiap halaman. Sehingga strukturnya akan seperti ini contohnya:
 
 - views
+
 -- layouts
+
 -- components
+
 -- pages
 
 	* membuat components  blade pada direktory views/components
